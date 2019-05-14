@@ -546,10 +546,10 @@ public class Trimmer {
     try {
       FFmpegMediaMetadataRetriever.IN_PREFERRED_CONFIG = Bitmap.Config.ARGB_8888;
       metadataRetriever.setDataSource(source);
-
-      bmp = metadataRetriever.getFrameAtTime((long) (sec * 1000000));
+      long second = (long) sec * 1000000;
+      bmp = metadataRetriever.getFrameAtTime(second, FFmpegMediaMetadataRetriever.OPTION_CLOSEST);
       if(bmp == null){
-        promise.reject("Failed to get preview at requested position.");
+        promise.reject("Failed to get preview at requested position." + second);
         return;
       }
 
